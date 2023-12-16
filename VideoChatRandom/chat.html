@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>Chat de Video</title>
+    <style>
+        /* Estilos del chat */
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        #video-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 600px;
+            width: 100%;
+        }
+        video {
+            width: 100%;
+            max-width: 600px;
+            background-color: #111;
+            border: 1px solid #444;
+        }
+        #chat-messages {
+            width: 100%;
+            max-width: 400px;
+            height: 100px;
+            overflow-y: scroll;
+            background-color: #111;
+            border: 1px solid #444;
+        }
+        #message-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px;
+            background-color: #111;
+            border: 1px solid #444;
+            color: #fff;
+        }
+        #control-buttons {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: #333;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chat de Video</h1>
+    
+    <div id="video-container">
+        <video id="local-video" autoplay></video>
+        <video id="remote-video" autoplay></video>
+    </div>
+    
+    <div id="chat-messages">
+        <!-- Chat de texto aquí -->
+    </div>
+    
+    <input type="text" id="message-input" placeholder="Escribe un mensaje">
+    
+    <div id="control-buttons">
+        <button id="start-stop-button">Iniciar</button>
+        <button id="next-button">Siguiente</button>
+        <button id="stop-button">Detener</button>
+    </div>
+    
+    <script>
+        const localVideo = document.getElementById('local-video');
+        const remoteVideo = document.getElementById('remote-video');
+        const startStopButton = document.getElementById('start-stop-button');
+        const stopButton = document.getElementById('stop-button');
+        const chatMessages = document.getElementById('chat-messages');
+        const messageInput = document.getElementById('message-input');
+        
+        let localStream;
+        let peerConnection;
+
+        startStopButton.addEventListener('click', () => {
+            if (!localStream) {
+                navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+                    .then(stream => {
+                        localStream = stream;
+                        localVideo.srcObject = stream;
+                        
+                        // Configurar la conexión de WebRTC aquí
+                        // ...
+                    })
+                    .catch(error => {
+                        console.error('Error al obtener acceso a la cámara y al micrófono:', error);
+                    });
+            } else {
+                // Lógica para detener la videollamada
+                localStream.getTracks().forEach(track => track.stop());
+                localVideo.srcObject = null;
+            }
+        });
+
+        // Resto del código...
+    </script>
+</body>
+</html>

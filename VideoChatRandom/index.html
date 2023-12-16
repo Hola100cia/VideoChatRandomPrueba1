@@ -1,0 +1,76 @@
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
+<script src="client.js"></script>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+    <title>Página de Selección de Género y Edad</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        h1 {
+            font-size: 36px;
+        }
+        #gender-buttons {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+        }
+        #age-input {
+            margin-top: 20px;
+        }
+        #random-button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Nombre de la Página</h1>
+    
+    <div id="gender-buttons">
+        <button id="female-button">Mujer</button>
+        <button id="male-button">Hombre</button>
+    </div>
+
+    <div id="age-input">
+        <label for="age">Edad:</label>
+        <input type="number" id="age" placeholder="Ingrese su edad">
+    </div>
+
+    <button id="random-button">Random</button>
+    
+    <script>
+        const femaleButton = document.getElementById('female-button');
+        const maleButton = document.getElementById('male-button');
+        const ageInput = document.getElementById('age');
+        const randomButton = document.getElementById('random-button');
+        
+        femaleButton.addEventListener('click', () => {
+            // Redirigir a la página de chat para mujeres con la edad
+            window.location.href = `chat.html?gender=female&age=${ageInput.value}`;
+        });
+        
+        maleButton.addEventListener('click', () => {
+            // Redirigir a la página de chat para hombres con la edad
+            window.location.href = `chat.html?gender=male&age=${ageInput.value}`;
+        });
+
+        randomButton.addEventListener('click', () => {
+            // Implementar la lógica para manejar el botón de "Random"
+            alert('Acción aleatoria realizada');
+        });
+    </script>
+</body>
+</html>
